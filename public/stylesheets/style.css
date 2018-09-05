@@ -39,6 +39,7 @@ textarea {
   border-top: 1px solid black;
   padding: 0.7em;
   resize: none;
+  font-size: 1.1em;
 }
 
 .date {
