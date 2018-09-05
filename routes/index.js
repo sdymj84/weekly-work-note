@@ -4,16 +4,38 @@ var User = require('../models/users')
 var Note = require('../models/notes')
 var mongoose = require('mongoose')
 
-/* GET home page. */
 router.get('/', function (req, res, next) {
     var week = getWeek()
     var newWeek = [];
+    
+    var date = getMonday().toString().substring(0,15)
+
     for (day of week) {
         day = day.toString().split(" ")
         day = day.slice(0, 4)
         newWeek.push(day.toString().replace(/,/g, " "))
     }
-    res.render('index', { user: req.user, week: newWeek });
+    if (req.user) {
+        var id = mongoose.Types.ObjectId(req.user.id)
+        Note.findOne({user:id, date:date}, (err,notes)=>{
+            if (err) console.log(err)
+            else {
+                notes = notes || {}
+                console.log(notes)
+                res.render('index', { 
+                    user: req.user,
+                    week: newWeek,
+                    notes
+                });      
+            }
+        })
+    } else {
+        res.render('index', { 
+            user: req.user,
+            week: newWeek,
+            notes: {}
+        });      
+    }
 });
 
 router.post('/save', (req, res) => {

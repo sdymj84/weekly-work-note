@@ -4,21 +4,22 @@ block content
   form(action="/save", method="post")
     .note
       .date #{week[1]}
-      textarea(name="mon")
+      textarea(name="mon")= notes.mon
     .note
       .date #{week[2]}
-      textarea(name="tue")
+      textarea(name="tue")= notes.tue
     .note
       .date #{week[3]}
-      textarea(name="wed")
+      textarea(name="wed")= notes.wed
     .note
       .date #{week[4]}
-      textarea(name="thu")
+      textarea(name="thu")= notes.thu
     .note
       .date #{week[5]}
-      textarea(name="fri")
+      textarea(name="fri")= notes.fri
     .note
       .date Weekend
-      textarea(name="wkn")
-    input(type="submit", value="SAVE")#save
+      textarea(name="wkn")= notes.wkn
+    - if (user)
+      input(type="submit", value="SAVE")#save
   
