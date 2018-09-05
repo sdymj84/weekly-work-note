@@ -71,3 +71,8 @@ textarea {
 .auth-btn {
   margin-top: 10px;
 }
+#save {
+  position: fixed;
+  right: 20px;
+  top: 60px;
+}
