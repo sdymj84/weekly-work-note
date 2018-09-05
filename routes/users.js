@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../config/database')
 var passport = require('passport')
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcryptjs')
 
 /* GET users listing. */
 router.get('/login', (req, res) => {

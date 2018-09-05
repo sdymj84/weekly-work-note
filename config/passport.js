@@ -1,7 +1,7 @@
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy
 var User = require('./database')
-var bcrypt = require('bcrypt')
+var bcrypt = require('bcryptjs')
 
 passport.serializeUser((user, done) => {
     done(null, user._id)
