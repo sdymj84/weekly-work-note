@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1 Sign Up
+  form(action="/users/signup", method="post")
+    div
+      label Username 
+      input(type="text" name="username")
+    div
+      label Password  
+      input(type="password" name="password")
+    div
+      label Nickname 
+      input(type="text" name="nickname")
+    div
+      input(type="submit", value="SIGN UP")
