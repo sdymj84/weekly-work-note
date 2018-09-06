@@ -81,8 +81,6 @@ textarea {
   width: 100%;
   height: 100%;
   z-index: 0;
-  background-image: url('/images/wood-background.jpg');
-  background-size: auto;
 }
 
 .modal-body {
@@ -98,6 +96,11 @@ textarea {
 }
 
 .wall-image1 {
-  background-image: url('/images/wood-background.jpg');
+  background-image: url('/images/wood.jpg');
+  background-size: auto;
+}
+
+.wall-image2 {
+  background-image: url('/images/brick.jpg');
   background-size: auto;
 }
