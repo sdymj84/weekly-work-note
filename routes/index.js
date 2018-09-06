@@ -21,7 +21,6 @@ router.get('/', function (req, res, next) {
             if (err) console.log(err)
             else {
                 notes = notes || {}
-                console.log(notes)
                 res.render('index', { 
                     user: req.user,
                     week: newWeek,
@@ -41,7 +40,6 @@ router.get('/', function (req, res, next) {
 router.post('/save', (req, res) => {
     var id = mongoose.Types.ObjectId(req.user.id)
     var date = getMonday().toString().substring(0,15)
-    console.log(date)
     Note.updateOne({
         user: id,
         date: date
@@ -64,10 +62,10 @@ router.post('/save', (req, res) => {
 
 function getWeek() {
     now = new Date()
-    var sunday = new Date(now.setDate(now.getDate() - now.getDay()))
-    var result = [new Date(sunday)];
-    while (sunday.setDate(sunday.getDate() + 1) && sunday.getDay() !== 0) {
-        result.push(new Date(sunday));
+    var d = new Date(now.setDate(now.getDate() - now.getDay()))
+    var result = [new Date(d)];
+    while (d.setDate(d.getDate() + 1) && d.getDay() !== 0) {
+        result.push(new Date(d));
     }
     return result;
 }
@@ -75,7 +73,7 @@ function getWeek() {
 function getMonday() {
     d = new Date();
     var day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+        diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is d
     return new Date(d.setDate(diff));
 }
 

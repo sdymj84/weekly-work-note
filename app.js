@@ -6,6 +6,7 @@ var logger = require('morgan');
 var session = require('express-session');
 var MongoDBStore = require('connect-mongodb-session')(session);
 var mongoose = require('mongoose');
+var assert = require('assert')
 var passport = require('passport')
 require('./config/passport')
 
