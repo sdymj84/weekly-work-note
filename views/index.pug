@@ -21,5 +21,7 @@ block content
       .date Weekend
       textarea(name="wkn")= notes.wkn
     - if (user)
-      input(type="submit" class=`${wall}`)#save
+      input(type="submit" class=`${wall}` value="")#save
+    - else
+      #show-login-rec-msg
   
