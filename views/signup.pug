@@ -2,8 +2,8 @@ extends layout
 
 block content
   form.form-signin(action="/users/signup", method="post")
-    h1.h3.mb-3.font-weight-normal Please sign up
-    input.form-control(type='text', name="username", placeholder='Username', required='', autofocus='')
-    input.form-control(type='password', name="password", placeholder='Password', required='')
-    input#nickname.form-control(type='text', name="nickname", placeholder='Nickname', required='')
+    h2.mb-3.bold Please sign up
+    input.form-control(type='text', name="username", placeholder='Username', required, autofocus='', autocomplete='off')
+    input.form-control(type='password', name="password", placeholder='Password', required)
+    input#nickname.form-control(type='text', name="nickname", placeholder='Nickname', required, autocomplete='off')
     button.auth-btn.btn.btn-lg.btn-dark.btn-block(type='submit') Sign up

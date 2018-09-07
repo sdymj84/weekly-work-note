@@ -7,13 +7,13 @@ var mongoose = require('mongoose')
 
 /* GET users listing. */
 router.get('/login', (req, res) => {
-    res.render('login')
+    res.render('login', { message: req.flash().error })
 });
 
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/users/login',
-    failureFlash: false
+    failureFlash: true
 }))
 
 router.get('/signup', (req, res) => {

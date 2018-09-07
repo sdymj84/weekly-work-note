@@ -8,6 +8,7 @@ var MongoDBStore = require('connect-mongodb-session')(session);
 var mongoose = require('mongoose');
 var assert = require('assert')
 var passport = require('passport')
+var flash = require('connect-flash');
 require('./config/passport')
 
 var app = express();
@@ -63,6 +64,7 @@ app.use(require('express-session')({
 ==============================================================================*/
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(flash())
 
 
 /*==============================================================================

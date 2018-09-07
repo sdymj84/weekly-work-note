@@ -17,12 +17,11 @@ passport.use(new LocalStrategy((username, password, done) => {
     User.findOne({ username: username }, (err, user) => {
         if (err) return done(err)
         if (!user) {
-            console.log("Username not exist")
-            return done(null, false);
+            return done(null, false, {message:"Username not exist"});
         }
         bcrypt.compare(password, user.password, (err,res)=>{
             if (res) return done(null, user)
-            else return done(null, false)
+            else return done(null, false, {message:"Wrong password"})
         })
     })
 }))

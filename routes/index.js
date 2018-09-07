@@ -5,9 +5,10 @@ var Note = require('../models/notes')
 var mongoose = require('mongoose')
 
 router.get('/', function (req, res, next) {
-    var week = getWeek()
+    var d = new Date(req.query.date || Date.now())
+    var week = getWeek(d)
     var newWeek = [];
-    var date = getMonday().toString().substring(0,15)
+    var date = getMonday(d).toString().substring(0,15)
 
     for (day of week) {
         day = day.toString().split(" ")
@@ -67,9 +68,11 @@ router.post('/save', (req, res) => {
     })
 })
 
-function getWeek() {
-    now = new Date()
-    var d = new Date(now.setDate(now.getDate() - now.getDay()))
+function getWeek(d) {
+    // show the week. if Sunday, show previous week
+    var d = new Date(d)
+    var day = d.getDay()
+    d = new Date(d.setDate(d.getDate() - (day == 0 ? 7 : day)))
     var result = [new Date(d)];
     while (d.setDate(d.getDate() + 1) && d.getDay() !== 0) {
         result.push(new Date(d));
@@ -77,11 +80,11 @@ function getWeek() {
     return result;
 }
 
-function getMonday() {
-    d = new Date();
-    var day = d.getDay(),
-        diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is d
-    return new Date(d.setDate(diff));
+function getMonday(d) {
+    var d = new Date(d);
+    var day = d.getDay()
+    var mon = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is d
+    return new Date(d.setDate(mon));
 }
 
 
