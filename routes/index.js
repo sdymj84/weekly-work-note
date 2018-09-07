@@ -7,7 +7,6 @@ var mongoose = require('mongoose')
 router.get('/', function (req, res, next) {
     var week = getWeek()
     var newWeek = [];
-    
     var date = getMonday().toString().substring(0,15)
 
     for (day of week) {
@@ -17,15 +16,23 @@ router.get('/', function (req, res, next) {
     }
     if (req.user) {
         var id = mongoose.Types.ObjectId(req.user.id)
-        Note.findOne({user:id, date:date}, (err,notes)=>{
+        User.findOne({_id:id}, (err,user)=>{
             if (err) console.log(err)
             else {
-                notes = notes || {}
-                res.render('index', { 
-                    user: req.user,
-                    week: newWeek,
-                    notes
-                });      
+                var wallNum = user.settings.background || 1
+                var wall = `wall-image${wallNum}`
+                Note.findOne({user:id, date:date}, (err,notes)=>{
+                    if (err) console.log(err)
+                    else {
+                        notes = notes || {}
+                        res.render('index', { 
+                            user: req.user,
+                            week: newWeek,
+                            notes,
+                            wall
+                        });      
+                    }
+                })
             }
         })
     } else {
@@ -43,21 +50,21 @@ router.post('/save', (req, res) => {
     Note.updateOne({
         user: id,
         date: date
-    }, {
-            $set: {
-                mon: req.body.mon,
-                tue: req.body.tue,
-                wed: req.body.wed,
-                thu: req.body.thu,
-                fri: req.body.fri,
-                wkn: req.body.wkn
-            }
-        },
-        { upsert: true }, (err) => {
-            if (err) console.log(err)
-            else res.redirect('/')
-        })
-
+    }, 
+    {
+        $set: {
+            mon: req.body.mon,
+            tue: req.body.tue,
+            wed: req.body.wed,
+            thu: req.body.thu,
+            fri: req.body.fri,
+            wkn: req.body.wkn
+        }
+    },
+    { upsert: true }, (err) => {
+        if (err) console.log(err)
+        else res.redirect('/')
+    })
 })
 
 function getWeek() {

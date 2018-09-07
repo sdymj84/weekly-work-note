@@ -1,0 +1,28 @@
+#wall.modal.fade(tabindex='-1' role='dialog' aria-labelledby='wall-label' aria-hidden='true')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        h5#wall-label.modal-title Select Wall
+        button.close(type='button' data-dismiss='modal' aria-label='Close')
+          span(aria-hidden='true') &times;
+      form(action="/users/save", method="get")
+        .modal-body#wall-images-p
+          a(href="#")
+            label
+              input(type="radio", name="wall", value="1")
+              img(src="/images/wood-mini.jpg", alt="wood wall image")#wall-image1.wall-images
+          a(href="#")
+            label
+              input(type="radio", name="wall", value="2")
+              img(src="/images/brick-mini.jpg", alt="brick wall image")#wall-image2.wall-images
+          a(href="#")
+            label
+              input(type="radio", name="wall", value="3")
+              img(src="/images/window-mini.jpg", alt="window with rain image")#wall-image3.wall-images
+          a(href="#")
+            label
+              input(type="radio", name="wall", value="4")
+              img(src="/images/grind-mini.jpg", alt="grind wall image")#wall-image4.wall-images
+        .modal-footer
+          button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+          input(type="submit", value="Save").btn.btn-primary

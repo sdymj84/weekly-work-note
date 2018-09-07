@@ -6,7 +6,7 @@ body {
   padding: 50px;
   width: 100%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-image: url('/images/wood-background.jpg');
+  background-image: url('/images/wood.jpg');
   background-size: auto;
 }
 
@@ -120,4 +120,8 @@ textarea {
 .wall-image4 {
   background-image: url('/images/grind.jpg');
   background-size: auto;
+}
+
+label > input[type="radio"] {
+  display: none;
 }

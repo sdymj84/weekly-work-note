@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../models/users')
 var passport = require('passport')
 var bcrypt = require('bcryptjs')
+var mongoose = require('mongoose')
 
 /* GET users listing. */
 router.get('/login', (req, res) => {
@@ -41,6 +42,18 @@ router.post('/signup', (req, res) => {
 router.get('/logout', (req,res)=>{
     req.logout()
     res.redirect('/')
+})
+
+router.get('/save', (req,res)=>{
+    var wallNum = req.query.wall
+    console.log(wallNum)
+    var id = mongoose.Types.ObjectId(req.user.id)
+    User.updateOne({_id:id}, {
+        'settings.background': wallNum
+    }, (err)=>{
+        if (err) console.log(err)
+        else res.redirect('/')
+    })
 })
 
 module.exports = router;

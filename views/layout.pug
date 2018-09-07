@@ -28,34 +28,14 @@ html
               li.nav-item.active
                 a.nav-link#nav-font(href='#') FONT
             ul.navbar-nav.ml-auto
+              li.nav-item.active.nav-link Hi, #{user.nickname}
               li.nav-item.active
                 a.nav-link(href='/users/logout') LOG OUT
     main
       .starter-template
         block content
     
-
-    // Modals - Set walli
-    #wall.modal.fade(tabindex='-1' role='dialog' aria-labelledby='wall-label' aria-hidden='true')
-      .modal-dialog(role='document')
-        .modal-content
-          .modal-header
-            h5#wall-label.modal-title Select Wall
-            button.close(type='button' data-dismiss='modal' aria-label='Close')
-              span(aria-hidden='true') &times;
-          .modal-body#wall-images-p
-            a(href="#")
-              img(src="/images/wood-mini.jpg", alt="wood wall image")#wall-image1.wall-images
-            a(href="#")
-              img(src="/images/brick-mini.jpg", alt="brick wall image")#wall-image2.wall-images
-            a(href="#")
-              img(src="/images/window-mini.jpg", alt="window with rain image")#wall-image3.wall-images
-            a(href="#")
-              img(src="/images/grind-mini.jpg", alt="grind wall image")#wall-image4.wall-images
-          .modal-footer
-            button.btn.btn-secondary(type='button' data-dismiss='modal') Close
-
-
+    include wall-modal
 
     script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous')
