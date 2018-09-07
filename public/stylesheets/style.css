@@ -94,6 +94,13 @@ textarea {
   outline: 1px solid red;
   display: inline-block;
 }
+.wall-images:hover {
+  opacity: 0.7;
+}
+.wall-images:active {
+  position: relative;
+  top: 1px;
+}
 
 .wall-image1 {
   background-image: url('/images/wood.jpg');
@@ -102,5 +109,15 @@ textarea {
 
 .wall-image2 {
   background-image: url('/images/brick.jpg');
+  background-size: auto;
+}
+
+.wall-image3 {
+  background-image: url('/images/window.jpg');
+  background-size: auto;
+}
+
+.wall-image4 {
+  background-image: url('/images/grind.jpg');
   background-size: auto;
 }
