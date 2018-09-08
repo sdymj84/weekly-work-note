@@ -84,8 +84,27 @@ textarea {
   z-index: 0;
 }
 
-.modal-body {
+.modal-body#wall-images-p  {
   text-align: center;
+}
+
+.modal-body#wall-images-p label {
+  cursor: pointer;
+}
+
+.font-list {
+  color: navy;
+  font-size: 1.3em;
+  cursor: pointer;
+}
+
+.font-list:hover {
+  opacity: 0.7;
+}
+
+.font-list:active {
+  position: relative;
+  top: 1px;
 }
 
 .wall-images {
@@ -187,14 +206,8 @@ label > input[type="radio"] {
 }
 
 .datepicker {
-  width: 290px;
-  height: 230px;
-  padding: 1em;
+  padding: 0.7em;
   text-align: center;
-}
-
-.table-condensed {
-  width: 250px;
 }
 
 .custom-font {
@@ -215,4 +228,13 @@ label > input[type="radio"] {
 }
 .custom-font2 {
   font-family: 'Mukta', sans-serif;
+}
+
+.navbar {
+  padding-top: 0.3rem;
+  padding-bottom: 0.3rem;
+}
+
+#load-font {
+  display: none;
 }

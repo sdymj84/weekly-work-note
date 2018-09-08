@@ -1,0 +1,22 @@
+#font.modal.fade(tabindex='-1' role='dialog' aria-labelledby='wall-label' aria-hidden='true')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        h5#font-label.modal-title Select Font
+        button.close(type='button' data-dismiss='modal' aria-label='Close')
+          span(aria-hidden='true') &times;
+      form(action="/users/save", method="get")
+        .modal-body#font-p
+          div
+            a(href="#")
+              label
+                input(type="radio", name="font", value="Roboto")
+                span#font1.font-list Roboto : This is the example of the font!
+          div
+            a(href="#")
+              label
+                input(type="radio", name="font", value="Mukta")
+                span#font2.font-list Mukta : This is the example of the font!
+        .modal-footer
+          button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+          input(type="submit", value="Save").btn.btn-primary

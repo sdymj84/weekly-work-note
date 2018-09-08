@@ -21,6 +21,7 @@ router.get('/', function (req, res, next) {
             if (err) console.log(err)
             else {
                 var wallNum = user.settings.background || 1
+                var font = user.settings.font || 'Roboto'
                 var wall = `wall-image${wallNum}`
                 Note.findOne({user:id, date:date}, (err,notes)=>{
                     if (err) console.log(err)
@@ -29,8 +30,7 @@ router.get('/', function (req, res, next) {
                         res.render('index', { 
                             user: req.user,
                             week: newWeek,
-                            notes,
-                            wall
+                            notes, wall, font
                         });      
                     }
                 })
@@ -38,7 +38,6 @@ router.get('/', function (req, res, next) {
         })
     } else {
         res.render('index', { 
-            user: req.user,
             week: newWeek,
             notes: {}
         });      

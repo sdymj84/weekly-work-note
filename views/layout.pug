@@ -28,7 +28,7 @@ html
               li.nav-item.active
                 a.nav-link#nav-wall(href='#' data-toggle="modal" data-target="#wall") WALL
               li.nav-item.active
-                a.nav-link#nav-font(href='#') FONT
+                a.nav-link#nav-font(href='#' data-toggle="modal" data-target="#font") FONT
             ul.navbar-nav.ml-auto
               li.nav-item.active.nav-link Hi, #{user.nickname}
               li.nav-item.active
@@ -38,9 +38,12 @@ html
         block content
     
     include wall-modal
+    include font-modal
     #login-rec-msg.toast Notes will NOT be saved until you're logged in
     form(action="/", method="get")#set-date-form
       input(type="hidden", name="date")#set-date
+    - if (user)
+      #load-font= font
 
     script(src='https://code.jquery.com/jquery-3.3.1.slim.min.js' integrity='sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo' crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous')

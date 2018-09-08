@@ -46,14 +46,24 @@ router.get('/logout', (req,res)=>{
 
 router.get('/save', (req,res)=>{
     var wallNum = req.query.wall
-    console.log(wallNum)
+    var font = req.query.font
     var id = mongoose.Types.ObjectId(req.user.id)
-    User.updateOne({_id:id}, {
-        'settings.background': wallNum
-    }, (err)=>{
-        if (err) console.log(err)
-        else res.redirect('/')
-    })
+
+    if (wallNum) {
+        User.updateOne({_id:id}, {
+            'settings.background': wallNum,
+        }, (err)=>{
+            if (err) console.log(err)
+            else res.redirect('/')
+        })    
+    } else if (font) {
+        User.updateOne({_id:id}, {
+            'settings.font': font
+        }, (err)=>{
+            if (err) console.log(err)
+            else res.redirect('/')
+        })
+    }
 })
 
 module.exports = router;

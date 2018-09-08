@@ -2,6 +2,15 @@ $("#wall-images-p").on("click", "img", function() {
     $("#save").removeClass().addClass(this.id)
 })
 
+setFontInModal()
+setFontInAll()
+
+if ($("#load-font").length) {
+    const font = $("#load-font").text()
+    $("*").css('font-family', font)
+    setFontInModal()
+}
+
 if ($("#show-login-rec-msg").length) {
     loginRecMsg()
 }
@@ -20,9 +29,6 @@ $("#history").datepicker({
     $("#set-date-form").submit()
 })
 
-// $("body").css('font-family', 'Roboto')
-$("body").css('font-family', 'Mukta')
-
 
 function loginErrMsg() {
     $("#login-err-msg").addClass("show")
@@ -36,4 +42,19 @@ function loginRecMsg() {
     setTimeout(function() {
         $("#login-rec-msg").removeClass("show")
     }, 3000)
+}
+
+function setFontInModal() {
+    $(".font-list").each(function(i, element) {
+        const font = $(element).text().split(" ")[0]
+        $(`#font${i+1}`).css('font-family', font)
+    })
+}
+
+function setFontInAll() {
+    $(".font-list").on("click", function() {
+        const font = $(this).text().split(" ")[0]
+        $("*").css('font-family', font)
+        setFontInModal()
+    })
 }

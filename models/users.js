@@ -6,6 +6,7 @@ var userSchema = mongoose.Schema({
     nickname: String,
     settings: {
         background: Number,
+        font: String,
     }
 })
 

@@ -15,4 +15,4 @@ Note your work schedule and TODOs daily with this simple intuitive note
 
 
 ## Notes
-- ES6 Arrow function doesn't work with jQuery
+- ES6 Arrow function doesn't work with jQuery event
