@@ -46,14 +46,15 @@ function loginRecMsg() {
 
 function setFontInModal() {
     $(".font-list").each(function(i, element) {
-        const font = $(element).text().split(" ")[0]
+        const font = $(element).text().split(":")[0]
         $(`#font${i+1}`).css('font-family', font)
+        console.log(font)
     })
 }
 
 function setFontInAll() {
     $(".font-list").on("click", function() {
-        const font = $(this).text().split(" ")[0]
+        const font = $(this).text().split(":")[0]
         $("*").css('font-family', font)
         setFontInModal()
     })
