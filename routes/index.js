@@ -5,10 +5,8 @@ var Note = require('../models/notes')
 var mongoose = require('mongoose')
 
 router.get('/', function (req, res, next) {
-    var d = new Date(req.query.date || Date.now())
-    var week = getWeek(d)
+    var week = getWeek(Date.now())
     var newWeek = [];
-    var date = getMonday(d).toString().substring(0,15)
 
     for (day of week) {
         day = day.toString().split(" ")
@@ -23,6 +21,17 @@ router.get('/', function (req, res, next) {
                 var wallNum = user.settings.background || 1
                 var font = user.settings.font || 'Roboto'
                 var wall = `wall-image${wallNum}`
+                var date = user.currentDate
+
+                week = getWeek(date)
+                newWeek = [];
+
+                for (day of week) {
+                    day = day.toString().split(" ")
+                    day = day.slice(0, 4)
+                    newWeek.push(day.toString().replace(/,/g, " "))
+                }
+
                 Note.findOne({user:id, date:date}, (err,notes)=>{
                     if (err) console.log(err)
                     else {
@@ -46,24 +55,31 @@ router.get('/', function (req, res, next) {
 
 router.post('/save', (req, res) => {
     var id = mongoose.Types.ObjectId(req.user.id)
-    var date = getMonday().toString().substring(0,15)
-    Note.updateOne({
-        user: id,
-        date: date
-    }, 
-    {
-        $set: {
-            mon: req.body.mon,
-            tue: req.body.tue,
-            wed: req.body.wed,
-            thu: req.body.thu,
-            fri: req.body.fri,
-            wkn: req.body.wkn
-        }
-    },
-    { upsert: true }, (err) => {
+    var d = new Date(Date.now())
+    User.findOne({_id:id}, (err,user)=>{
         if (err) console.log(err)
-        else res.redirect('/')
+        else {
+            d = new Date(user.currentDate)
+            var date = getMonday(d).toString().substring(0,15)
+            Note.updateOne({
+                user: id,
+                date: date
+            }, 
+            {
+                $set: {
+                    mon: req.body.mon,
+                    tue: req.body.tue,
+                    wed: req.body.wed,
+                    thu: req.body.thu,
+                    fri: req.body.fri,
+                    wkn: req.body.wkn
+                }
+            },
+            { upsert: true }, (err) => {
+                if (err) console.log(err)
+                else res.redirect('/')
+            })
+        }
     })
 })
 

@@ -44,6 +44,7 @@ router.get('/logout', (req,res)=>{
     res.redirect('/')
 })
 
+// when user select wall-image or font
 router.get('/save', (req,res)=>{
     var wallNum = req.query.wall
     var font = req.query.font
@@ -65,5 +66,30 @@ router.get('/save', (req,res)=>{
         })
     }
 })
+
+// when user change date, the new date will be saved in db
+// so the app can run based on the certain week the user set
+router.get('/set-date', (req,res)=>{
+    var id = mongoose.Types.ObjectId(req.user.id)
+    var d = new Date(req.query.date || Date.now())
+    var date = getMonday(d).toString().substring(0,15)
+    console.log(date)
+    User.updateOne({_id:id}, {
+        $set: {
+            currentDate: date
+        }
+    }, (err)=>{
+        if (err) console.log(err)
+        else res.redirect('/')
+    })
+})
+
+
+function getMonday(d) {
+    var d = new Date(d);
+    var day = d.getDay()
+    var mon = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is d
+    return new Date(d.setDate(mon));
+}
 
 module.exports = router;
