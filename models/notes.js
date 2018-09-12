@@ -8,7 +8,7 @@ var noteSchema = mongoose.Schema({
     wed: String,
     thu: String,
     fri: String,
-    wkn: String
+    etc: String
 })
 
 module.exports = mongoose.model('Note', noteSchema)

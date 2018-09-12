@@ -72,7 +72,7 @@ router.post('/save', (req, res) => {
                     wed: req.body.wed,
                     thu: req.body.thu,
                     fri: req.body.fri,
-                    wkn: req.body.wkn
+                    etc: req.body.etc
                 }
             },
             { upsert: true }, (err, dbRes) => {

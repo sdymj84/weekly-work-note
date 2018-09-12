@@ -74,7 +74,7 @@ textarea {
 .auth-btn {
   margin-top: 10px;
 }
-#save {
+#save1 {
   position: fixed;
   top: 0;
   left: 0;
@@ -209,19 +209,6 @@ label > input[type="radio"] {
   padding: 0.7em;
   text-align: center;
 }
-/* 
-.custom-font {
-  font-family: 'Roboto', sans-serif;
-  font-family: 'Mukta', sans-serif;
-  font-family: 'Gamja Flower', cursive;
-  font-family: 'Indie Flower', cursive;
-  font-family: 'Shadows Into Light', cursive;
-  font-family: 'Dancing Script', cursive;
-  font-family: 'Source Serif Pro', serif;
-  font-family: 'Comfortaa', cursive;
-  font-family: 'Amatic SC', cursive;
-  font-family: 'Rajdhani', sans-serif;
-} */
 
 .navbar {
   padding-top: 0.3rem;
@@ -230,4 +217,12 @@ label > input[type="radio"] {
 
 #load-font {
   display: none;
+}
+
+#save2 {
+  border-radius: 4px;
+  margin-right: 7px;
+  width: 4em;
+  text-align: center;
+  letter-spacing: 0.07em;
 }
