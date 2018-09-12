@@ -1,5 +1,5 @@
 $("#wall-images-p").on("click", "img", function() {
-    $("#save").removeClass().addClass(this.id)
+    $("#save1").removeClass().addClass(this.id)
 })
 
 setFontInModal()
@@ -29,7 +29,7 @@ $("#history").datepicker({
     $("#set-date-form").submit()
 })
 
-$("#save").on('click', function(e) {
+$("#save1, #save2").on('click', function(e) {
     e.preventDefault()
     ajaxSaveNotes()
 })

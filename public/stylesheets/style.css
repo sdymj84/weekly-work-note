@@ -74,7 +74,7 @@ textarea {
 .auth-btn {
   margin-top: 10px;
 }
-#save {
+#save1 {
   position: fixed;
   top: 0;
   left: 0;
@@ -217,4 +217,12 @@ label > input[type="radio"] {
 
 #load-font {
   display: none;
+}
+
+#save2 {
+  border-radius: 4px;
+  margin-right: 7px;
+  width: 4em;
+  text-align: center;
+  letter-spacing: 0.07em;
 }
