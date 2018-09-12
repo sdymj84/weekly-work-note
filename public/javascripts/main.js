@@ -76,7 +76,6 @@ function showToastMsg(message) {
 $("#history").datepicker({
     todayBtn: true,
     todayHighlight: true,
-    endDate: "0d",
     maxViewMode: 2,
 }).on('changeDate', function(e) {
     $("#set-date").val(e.date)
