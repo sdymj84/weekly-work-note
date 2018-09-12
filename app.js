@@ -27,8 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /*==============================================================================
   Database
 ==============================================================================*/
-// mongoose.connect('mongodb://localhost:27017/weekly-work-note')
-mongoose.connect('mongodb://18.216.145.9:27017/weekly-work-note')
+mongoose.connect('mongodb://localhost:27017/weekly-work-note')
 
 
 /*==============================================================================
