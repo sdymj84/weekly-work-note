@@ -29,7 +29,12 @@ $("#history").datepicker({
     $("#set-date-form").submit()
 })
 
-console.log($("#noteMon").val())
+$("#save").on('click', function(e) {
+    e.preventDefault()
+    ajaxSaveNotes()
+})
+
+setInterval(ajaxSaveNotes, 60000)
 
 
 function loginErrMsg() {
@@ -58,5 +63,29 @@ function setFontInAll() {
         const font = $(this).text().split(":")[0]
         $("*").css('font-family', font)
         setFontInModal()
+    })
+}
+
+function ajaxSaveNotes() {
+    let formData = {
+        mon: $("#note-mon").val(),
+        tue: $("#note-tue").val(),
+        wed: $("#note-wed").val(),
+        thu: $("#note-thu").val(),
+        fri: $("#note-fri").val(),
+        etc: $("#note-etc").val(),
+    }
+    
+    $.ajax({
+        type: "POST",
+        url: "save",
+        contentType: "application/json",
+        data: JSON.stringify(formData),
+        success: function() {
+            console.log("ajax post success")
+        },
+        error: function(e) {
+            console.log(e)
+        }
     })
 }
