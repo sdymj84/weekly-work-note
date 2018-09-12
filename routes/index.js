@@ -75,9 +75,11 @@ router.post('/save', (req, res) => {
                     wkn: req.body.wkn
                 }
             },
-            { upsert: true }, (err) => {
+            { upsert: true }, (err, dbRes) => {
                 if (err) console.log(err)
-                else res.redirect('/')
+                else {
+                    res.redirect('/')
+                } 
             })
         }
     })
@@ -102,5 +104,38 @@ function getMonday(d) {
     return new Date(d.setDate(mon));
 }
 
+function saveNotes() {
+    var id = mongoose.Types.ObjectId(req.user.id)
+    var d = new Date(Date.now())
+    User.findOne({_id:id}, (err,user)=>{
+        if (err) console.log(err)
+        else {
+            d = new Date(user.currentDate)
+            var date = getMonday(d).toString().substring(0,15)
+            Note.updateOne({
+                user: id,
+                date: date
+            }, 
+            {
+                $set: {
+                    mon: req.body.mon,
+                    tue: req.body.tue,
+                    wed: req.body.wed,
+                    thu: req.body.thu,
+                    fri: req.body.fri,
+                    wkn: req.body.wkn
+                }
+            },
+            { upsert: true }, (err, dbRes) => {
+                if (err) console.log(err)
+                else {
+                    res.redirect('/')
+                } 
+            })
+        }
+    })
+}
+
+setInterval(saveNotes, 2000)
 
 module.exports = router;
