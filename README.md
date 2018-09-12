@@ -17,3 +17,4 @@ Note your work schedule and TODOs daily with this simple intuitive note
 
 ## Notes
 - ES6 Arrow function doesn't work with jQuery event
+- Build everything without ajax and change to ajax at the end, because router logic and other server side logic doesn't need to be changed at all whether data is from form submitting or from ajax request. 

@@ -1,7 +1,15 @@
+/*===================================================================
+    Wall Changes    
+===================================================================*/
 $("#wall-images-p").on("click", "img", function() {
     $("#save1").removeClass().addClass(this.id)
 })
 
+
+
+/*===================================================================
+    Font Changes
+===================================================================*/
 setFontInModal()
 setFontInAll()
 
@@ -9,46 +17,6 @@ if ($("#load-font").length) {
     const font = $("#load-font").text()
     $("*").css('font-family', font)
     setFontInModal()
-}
-
-if ($("#show-login-rec-msg").length) {
-    loginRecMsg()
-}
-
-if ($("#show-err-msg").length) {
-    loginErrMsg()    
-}
-
-$("#history").datepicker({
-    todayBtn: true,
-    todayHighlight: true,
-    endDate: "0d",
-    maxViewMode: 2,
-}).on('changeDate', function(e) {
-    $("#set-date").val(e.date)
-    $("#set-date-form").submit()
-})
-
-$("#save1, #save2").on('click', function(e) {
-    e.preventDefault()
-    ajaxSaveNotes()
-})
-
-setInterval(ajaxSaveNotes, 60000)
-
-
-function loginErrMsg() {
-    $("#login-err-msg").addClass("show")
-    setTimeout(function() {
-        $("#login-err-msg").removeClass("show")
-    }, 3000)
-}
-
-function loginRecMsg() {
-    $("#login-rec-msg").addClass("show")
-    setTimeout(function() {
-        $("#login-rec-msg").removeClass("show")
-    }, 3000)
 }
 
 function setFontInModal() {
@@ -64,6 +32,69 @@ function setFontInAll() {
         $("*").css('font-family', font)
         setFontInModal()
     })
+}
+
+
+
+/*===================================================================
+    Control Toast Messages
+===================================================================*/
+if ($("#show-login-rec-msg").length) {
+    showToastMsg("Notes will NOT be saved until you're logged in")
+}
+
+if ($("#show-err-msg").length) {
+    loginErrMsg()
+}
+
+function loginErrMsg() {
+    $("#login-err-msg").addClass("show")
+    setTimeout(function() {
+        $("#login-err-msg").removeClass("show")
+    }, 3000)
+}
+
+function loginRecMsg() {
+    $("#login-rec-msg").addClass("show")
+    setTimeout(function() {
+        $("#login-rec-msg").removeClass("show")
+    }, 3000)
+}
+
+function showToastMsg(message) {
+    $("#toast-msg").text(message).addClass("show")
+    setTimeout(function() {
+        $("#toast-msg").removeClass("show")
+    }, 3000)
+}
+
+
+
+/*===================================================================
+    Date Changes
+===================================================================*/
+$("#history").datepicker({
+    todayBtn: true,
+    todayHighlight: true,
+    endDate: "0d",
+    maxViewMode: 2,
+}).on('changeDate', function(e) {
+    $("#set-date").val(e.date)
+    $("#set-date-form").submit()
+})
+
+
+
+/*===================================================================
+    Save Notes with Ajax
+===================================================================*/
+$("#save1, #save2").on('click', function(e) {
+    e.preventDefault()
+    ajaxSaveNotes()
+})
+
+if ($("#save2").length) {
+    setInterval(ajaxSaveNotes, 60000)
 }
 
 function ajaxSaveNotes() {
@@ -82,10 +113,15 @@ function ajaxSaveNotes() {
         contentType: "application/json",
         data: JSON.stringify(formData),
         success: function() {
-            console.log("ajax post success")
+            console.log("Notes are saved successfully")
         },
         error: function(e) {
+            showToastMsg("Auto save issue occurred, please save manually")
             console.log(e)
         }
     })
 }
+
+
+
+

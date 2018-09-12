@@ -41,7 +41,7 @@ html
     
     include wall-modal
     include font-modal
-    #login-rec-msg.toast Notes will NOT be saved until you're logged in
+    #toast-msg.toast
     form(action="/users/set-date", method="get")#set-date-form
       input(type="hidden", name="date")#set-date
     - if (user)
