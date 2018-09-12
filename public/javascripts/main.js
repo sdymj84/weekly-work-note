@@ -29,6 +29,8 @@ $("#history").datepicker({
     $("#set-date-form").submit()
 })
 
+console.log($("#noteMon").val())
+
 
 function loginErrMsg() {
     $("#login-err-msg").addClass("show")
@@ -48,7 +50,6 @@ function setFontInModal() {
     $(".font-list").each(function(i, element) {
         const font = $(element).text().split(":")[0]
         $(`#font${i+1}`).css('font-family', font)
-        console.log(font)
     })
 }
 

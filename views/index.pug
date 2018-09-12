@@ -4,7 +4,7 @@ block content
   form(action="/save", method="post")
     .note
       .date #{week[1]}
-      textarea(name="mon")= notes.mon
+      textarea#noteMon(name="mon")= notes.mon
     .note
       .date #{week[2]}
       textarea(name="tue")= notes.tue

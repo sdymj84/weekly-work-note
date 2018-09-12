@@ -3,7 +3,7 @@
 } */
 
 body {
-  padding: 50px;
+  padding-top: 50px;
   width: 100%;
   font-size: 0.87em;
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
@@ -209,19 +209,6 @@ label > input[type="radio"] {
   padding: 0.7em;
   text-align: center;
 }
-/* 
-.custom-font {
-  font-family: 'Roboto', sans-serif;
-  font-family: 'Mukta', sans-serif;
-  font-family: 'Gamja Flower', cursive;
-  font-family: 'Indie Flower', cursive;
-  font-family: 'Shadows Into Light', cursive;
-  font-family: 'Dancing Script', cursive;
-  font-family: 'Source Serif Pro', serif;
-  font-family: 'Comfortaa', cursive;
-  font-family: 'Amatic SC', cursive;
-  font-family: 'Rajdhani', sans-serif;
-} */
 
 .navbar {
   padding-top: 0.3rem;
