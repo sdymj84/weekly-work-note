@@ -136,6 +136,4 @@ function saveNotes() {
     })
 }
 
-setInterval(saveNotes, 2000)
-
 module.exports = router;
