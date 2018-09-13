@@ -10,6 +10,9 @@ html
     title Weekly Work Note
   body
     header
+      - if (user)
+        #load-font= font
+
       nav.navbar.navbar-expand-sm.navbar-dark.fixed-top.bg-dark
         a.navbar-brand(href='/') HOME
         button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarCollapse', aria-controls='navbarCollapse', aria-expanded='false', aria-label='Toggle navigation')
@@ -44,8 +47,7 @@ html
     #toast-msg.toast
     form(action="/users/set-date", method="get")#set-date-form
       input(type="hidden", name="date")#set-date
-    - if (user)
-      #load-font= font
+    
 
     script(src='https://code.jquery.com/jquery-3.3.1.min.js', integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=', crossorigin='anonymous')
     script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js' integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49' crossorigin='anonymous')

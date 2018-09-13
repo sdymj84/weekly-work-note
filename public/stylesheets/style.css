@@ -2,6 +2,10 @@
   outline: 1px solid red;
 } */
 
+*:focus {
+  outline: 0;
+}
+
 body {
   padding-top: 50px;
   width: 100%;
@@ -16,7 +20,7 @@ a {
 }
 
 .starter-template {
-  margin-top: 1em;
+  margin: 1em 0 2em 0;
   width: 100%;
   text-align: center;
 }
@@ -226,3 +230,56 @@ label > input[type="radio"] {
   text-align: center;
   letter-spacing: 0.07em;
 }
+
+.anime {
+  -webkit-animation-name: saved; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+  animation-name: saved;
+  animation-duration: 1s;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes saved {
+  0% {
+    outline: 0;
+  }
+  50% {
+    outline: 3px solid #218838;
+  }
+  100% {
+    outline: 0;
+  }
+}
+
+/* Standard syntax */
+@keyframes saved {
+  0% {
+    outline: 0;
+  }
+  50% {
+    outline: 3px solid #218838;
+  }
+  100% {
+    outline: 0;
+  }
+}
+
+textarea::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+	background-color: #F0E68C;
+	border-radius: 10px;
+}
+
+textarea::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F0E68C;
+}
+
+textarea::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: rgba(238, 134, 93, 0.884);
+}
+
