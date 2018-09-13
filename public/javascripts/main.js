@@ -1,10 +1,6 @@
 /*===================================================================
     Front End Effects
 ===================================================================*/
-$("#save2").on("click", function() {
-    saveEffect()
-})
-
 function saveEffect() {
     $(".navbar").addClass("shadow-black")
     $("#save2").addClass("bcolor-ani")
