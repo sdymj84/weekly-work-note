@@ -1,9 +1,18 @@
+/*===================================================================
+    Front End Effects
+===================================================================*/
 $("#save2").on("click", function() {
-    $(".navbar").addClass("anime")
-    setTimeout(function() {
-        $(".navbar").removeClass("anime")
-    }, 1000)
+    saveEffect()
 })
+
+function saveEffect() {
+    $(".navbar").addClass("shadow-black")
+    $("#save2").addClass("bcolor-ani")
+    setTimeout(function() {
+        $(".navbar").removeClass("shadow-black")
+        $("#save2").removeClass("bcolor-ani")
+    }, 1000)
+}
 
 /*===================================================================
     Wall Changes    
@@ -119,6 +128,7 @@ function ajaxSaveNotes() {
         contentType: "application/json",
         data: JSON.stringify(formData),
         success: function() {
+            saveEffect()
             console.log("Notes are saved successfully")
         },
         error: function(e) {

@@ -231,39 +231,61 @@ label > input[type="radio"] {
   letter-spacing: 0.07em;
 }
 
-.anime {
-  -webkit-animation-name: saved; /* Safari 4.0 - 8.0 */
+.shadow-black {
+  -webkit-animation-name: shadow-black; /* Safari 4.0 - 8.0 */
   -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
-  animation-name: saved;
+  animation-name: shadow-black;
   animation-duration: 1s;
 }
 
 /* Safari 4.0 - 8.0 */
-@-webkit-keyframes saved {
+@-webkit-keyframes shadow-black {
   0% {
-    outline: 0;
+    box-shadow: 0;
   }
   50% {
-    outline: 3px solid #218838;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
   100% {
-    outline: 0;
+    box-shadow: 0;
   }
 }
 
 /* Standard syntax */
-@keyframes saved {
+@keyframes shadow-black {
   0% {
-    outline: 0;
+    box-shadow: 0;
   }
   50% {
-    outline: 3px solid #218838;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
   100% {
-    outline: 0;
+    box-shadow: 0;
   }
 }
 
+.bcolor-ani {
+  -webkit-animation-name: bcolor-ani; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
+  animation-name: bcolor-ani;
+  animation-duration: 1s;
+}
+
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes bcolor-ani {
+  0% {background-color: #28A745;}
+  50% {background-color: #975f5f;}
+  100% {background-color: #28A745;}
+}
+
+/* Standard syntax */
+@keyframes bcolor-ani {
+  0% {background-color: #28A745;}
+  50% {background-color: #975f5f;}
+  100% {background-color: #28A745;}
+}
+
+/* Textarea scroll bar customization */
 textarea::-webkit-scrollbar-track
 {
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
