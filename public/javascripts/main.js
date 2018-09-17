@@ -89,6 +89,7 @@ $("#history").datepicker({
     todayBtn: true,
     todayHighlight: true,
     maxViewMode: 2,
+    container: ".datepicker-container",
 }).on('changeDate', function(e) {
     $("#set-date").val(e.date)
     $("#set-date-form").submit()

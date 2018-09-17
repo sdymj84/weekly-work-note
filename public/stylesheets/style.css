@@ -212,6 +212,7 @@ label > input[type="radio"] {
 .datepicker {
   padding: 0.7em;
   text-align: center;
+  position: fixed;
 }
 
 .navbar {
