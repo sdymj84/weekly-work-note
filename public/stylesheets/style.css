@@ -12,7 +12,7 @@ body {
   font-size: 0.87em;
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
   background-image: url('/images/wood.jpg');
-  background-size: auto;
+  background-size: cover;
 }
 
 a {
@@ -126,33 +126,33 @@ textarea {
 }
 
 .wall-image1 {
-  background-image: url('/images/wood.jpg');
-  background-size: auto;
+  background-image: url('/images/1.jpg');
+  background-size: cover;
 }
 
 .wall-image2 {
-  background-image: url('/images/wood2.jpg');
-  background-size: auto;
+  background-image: url('/images/2.jpg');
+  background-size: cover;
 }
 
 .wall-image3 {
-  background-image: url('/images/rain-window1.jpeg');
-  background-size: auto;
+  background-image: url('/images/3.jpg');
+  background-size: cover;
 }
 
 .wall-image4 {
-  background-image: url('/images/rain-window2.jpeg');
-  background-size: auto;
+  background-image: url('/images/4.jpg');
+  background-size: cover;
 }
 
 .wall-image5 {
-  background-image: url('/images/chalkboard1.jpg');
-  background-size: auto;
+  background-image: url('/images/5.jpg');
+  background-size: cover;
 }
 
 .wall-image6 {
-  background-image: url('/images/chalkboard2.jpg');
-  background-size: auto;
+  background-image: url('/images/6.png');
+  background-size: cover;
 }
 
 label > input[type="radio"] {

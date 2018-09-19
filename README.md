@@ -16,6 +16,7 @@ Note your work schedule and TODOs daily with this simple intuitive note
 - Show save effect when notes are saved successfully
 - Change date from Histroy and read/update notes from past and future
 - Change font and wall from the list of predefined walls and fonts
+- Save note every one minute automatically
 
 
 ## Notes
