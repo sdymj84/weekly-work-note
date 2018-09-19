@@ -11,7 +11,7 @@ body {
   width: 100%;
   font-size: 0.87em;
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-image: url('/images/wood.jpg');
+  background-image: url('/images/1.jpg');
   background-size: cover;
 }
 
@@ -306,3 +306,11 @@ textarea::-webkit-scrollbar-thumb
 	background-color: rgba(238, 134, 93, 0.884);
 }
 
+.navbar a:hover {
+  font-weight: bold;
+}
+
+.navbar a:active {
+  position: relative;
+  top: 1px;
+}
