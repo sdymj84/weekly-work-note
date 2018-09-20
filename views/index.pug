@@ -2,25 +2,12 @@ extends layout
 
 block content
   form(action="/save", method="post")
-    .note
-      .date #{week[1]}
-      textarea#note-mon(name="mon")= notes.note
-    .note
-      .date #{week[2]}
-      textarea#note-tue(name="tue")= notes.note
-    .note
-      .date #{week[3]}
-      textarea#note-wed(name="wed")= notes.note
-    .note
-      .date #{week[4]}
-      textarea#note-thu(name="thu")= notes.note
-    .note
-      .date #{week[5]}
-      textarea#note-fri(name="fri")= notes.note
-    .note
-      .date Other Memo
-      textarea#note-etc(name="etc")= notes.note
-
+    - for (eachNote of notes)
+      - var day = eachNote.date.slice(0,3).toLowerCase()
+      .note
+        .date #{eachNote.date}
+        textarea(id=`note-${day}` name=`${day}`)= eachNote.note
+    
     - if (user)
       input(type="submit" class=`${wall}` value="")#save1
     - else
