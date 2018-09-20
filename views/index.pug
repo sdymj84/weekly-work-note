@@ -4,22 +4,23 @@ block content
   form(action="/save", method="post")
     .note
       .date #{week[1]}
-      textarea#note-mon(name="mon")= notes.mon
+      textarea#note-mon(name="mon")= notes.note
     .note
       .date #{week[2]}
-      textarea#note-tue(name="tue")= notes.tue
+      textarea#note-tue(name="tue")= notes.note
     .note
       .date #{week[3]}
-      textarea#note-wed(name="wed")= notes.wed
+      textarea#note-wed(name="wed")= notes.note
     .note
       .date #{week[4]}
-      textarea#note-thu(name="thu")= notes.thu
+      textarea#note-thu(name="thu")= notes.note
     .note
       .date #{week[5]}
-      textarea#note-fri(name="fri")= notes.fri
+      textarea#note-fri(name="fri")= notes.note
     .note
       .date Other Memo
-      textarea#note-etc(name="etc")= notes.etc
+      textarea#note-etc(name="etc")= notes.note
+
     - if (user)
       input(type="submit" class=`${wall}` value="")#save1
     - else

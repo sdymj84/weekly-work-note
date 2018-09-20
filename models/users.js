@@ -4,7 +4,7 @@ var userSchema = mongoose.Schema({
     username: String,
     password: String,
     nickname: String,
-    currentDate: {
+    currentWeekMon: {
         type: String,
         default: getMonday(new Date()).toString().substring(0,15)
     },

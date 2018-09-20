@@ -76,7 +76,7 @@ router.get('/set-date', (req,res)=>{
     console.log(date)
     User.updateOne({_id:id}, {
         $set: {
-            currentDate: date
+            currentWeekMon: date
         }
     }, (err)=>{
         if (err) console.log(err)
