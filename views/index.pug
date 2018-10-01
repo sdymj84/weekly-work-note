@@ -2,11 +2,15 @@ extends layout
 
 block content
   form(action="/save", method="post")
-    - for (eachNote of notes)
-      - var day = eachNote.date.slice(0,3).toLowerCase()
-      .note
-        .date #{eachNote.date}
-        textarea(id=`note-${day}` name=`${day}`)= eachNote.note
+    - if (notes)
+      - console.log("there's note: " + notes)
+      - for (eachNote of notes)
+        - var day = eachNote.date.slice(0,3).toLowerCase()
+        .note
+          .date #{eachNote.date}
+          textarea(id=`note-${day}` name=`${day}`)= eachNote.note
+    - else
+      - console.log("no notes")
     
     - if (user)
       input(type="submit" class=`${wall}` value="")#save1

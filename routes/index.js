@@ -40,17 +40,14 @@ router.get('/', function (req, res, next) {
 
                 Note.find({user:id}).then(myNotes=>{
                     var arrayNotes = []
-                    myNotes.forEach(eachNote=>{
-                        if (eachNote.date === newWeek[0] ||
-                            eachNote.date === newWeek[1] ||
-                            eachNote.date === newWeek[2] ||
-                            eachNote.date === newWeek[3] ||
-                            eachNote.date === newWeek[4] ||
-                            eachNote.date === newWeek[5] ||
-                            eachNote.date === newWeek[6]) {
-                            arrayNotes.push(eachNote || {})
-                        }
-                    })
+                    for (eachDate of newWeek) {
+                        myNotes.forEach(eachNote=>{
+                            if (eachNote.date === eachDate) {
+                                arrayNotes.push(eachNote || {})
+                                console.log(eachNote.date)
+                            }
+                        })
+                    }
                     return Promise.all(arrayNotes)
                 }).then(arrayNotes=>{
                     res.render('index', {
