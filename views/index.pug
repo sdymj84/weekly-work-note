@@ -3,7 +3,6 @@ extends layout
 block content
   form(action="/save", method="post")
     - if (notes)
-      - console.log("there's note: " + notes)
       - for (eachNote of notes)
         - var day = eachNote.date.slice(0,3).toLowerCase()
         .note
