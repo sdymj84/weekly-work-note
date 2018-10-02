@@ -2,12 +2,18 @@ extends layout
 
 block content
   form(action="/save", method="post")
-    - if (notes)
+    - if (notes.length)
       - for (eachNote of notes)
         - var day = eachNote.date.slice(0,3).toLowerCase()
+        - if (day === "sat")
+          - day = "etc"
         .note
-          .date #{eachNote.date}
+          - if (day === "etc")
+            .date Other Notes
+          - else
+            .date #{eachNote.date}
           textarea(id=`note-${day}` name=`${day}`)= eachNote.note
+          
     - else
       - console.log("no notes")
     

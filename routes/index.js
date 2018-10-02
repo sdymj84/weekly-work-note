@@ -74,10 +74,11 @@ router.get('/', function (req, res, next) {
             }
         })
     } else {
-        res.render('index', { 
-            week: newWeek,
-            notes: {}
-        });      
+        // res.render('index', { 
+        //     week: newWeek,
+        //     notes: {}
+        // });
+        res.redirect('/users/login')
     }
 });
 
