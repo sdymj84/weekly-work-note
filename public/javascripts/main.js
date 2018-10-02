@@ -10,7 +10,7 @@ function saveEffect() {
     }, 1000)
 }
 
-// $(".note-highlight").mark("Dream")
+
 
 /*===================================================================
     Wall Changes    
@@ -143,7 +143,5 @@ function ajaxSaveNotes() {
         }
     })
 }
-
-
 
 
