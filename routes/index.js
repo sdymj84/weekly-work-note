@@ -64,7 +64,6 @@ router.get('/', function (req, res, next) {
                         }).then(arrayNotes=>{
                             res.render('index', {
                                 user: req.user,
-                                week: newWeek,
                                 notes: arrayNotes, 
                                 wall, font
                             })
@@ -74,10 +73,6 @@ router.get('/', function (req, res, next) {
             }
         })
     } else {
-        // res.render('index', { 
-        //     week: newWeek,
-        //     notes: {}
-        // });
         res.redirect('/users/login')
     }
 });
@@ -101,6 +96,31 @@ router.post('/save', (req, res) => {
         }
     })
 })
+
+
+router.get('/search', (req,res)=>{
+    const searchTerm = req.query.searchTerm
+    const id = mongoose.Types.ObjectId(req.user.id)
+    // search the term from database
+    User.findOne({_id:id}, (err,user)=>{
+        if (err) console.log(err)
+        else {
+            var wallNum = user.settings.background || 1
+            var font = user.settings.font || 'Roboto'
+            var wall = `wall-image${wallNum}`
+            Note.find({user:id, $text:{$search:searchTerm}}, null, {sort: {_id: -1}}, (err,notes)=>{
+                if (err) console.log(err)
+                else {
+                    res.render('search', {
+                        user: req.user,
+                        notes, wall, font
+                    })
+                }
+            })
+        }
+    })
+})
+
 
 function getArrayNotes(myNotes, newWeek) {
     var arrayNotes = []

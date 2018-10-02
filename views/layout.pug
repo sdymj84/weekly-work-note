@@ -32,6 +32,10 @@ html
                 a.nav-link#nav-wall(href='#' data-toggle="modal" data-target="#wall") WALL
               li.nav-item.active
                 a.nav-link#nav-font(href='#' data-toggle="modal" data-target="#font") FONT
+              <form class="form-inline ml-5 my-lg-0" action="/search" method="get">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" name="searchTerm" aria-label="Search" required>
+                <input class="btn btn-outline-success my-2 my-sm-0" type="submit"></button>
+              </form>
             ul.navbar-nav.ml-auto
               li.nav-item.active
                 a.nav-link(href='#')#save2.btn-success SAVE
