@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  input(type="hidden", id="search-page")
   form(action="/save", method="post")
     - if (notes.length)
       - for (eachNote of notes)
@@ -12,7 +13,7 @@ block content
             .date Other Notes
           - else
             .date #{eachNote.date}
-          textarea(id=`note-${day}` name=`${day}`)= eachNote.note
+          textarea(class="note-highlight")= eachNote.note
           
     - else
       - console.log("no notes")

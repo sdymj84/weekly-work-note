@@ -113,7 +113,7 @@ router.get('/search', (req,res)=>{
                 else {
                     res.render('search', {
                         user: req.user,
-                        notes, wall, font
+                        notes, wall, font, searchTerm
                     })
                 }
             })

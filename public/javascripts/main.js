@@ -10,6 +10,8 @@ function saveEffect() {
     }, 1000)
 }
 
+// $(".note-highlight").mark("Dream")
+
 /*===================================================================
     Wall Changes    
 ===================================================================*/
@@ -100,13 +102,20 @@ $("#history").datepicker({
 /*===================================================================
     Save Notes with Ajax
 ===================================================================*/
-$("#save1, #save2").on('click', function(e) {
-    e.preventDefault()
-    ajaxSaveNotes()
-})
+if (!$("#search-page").length) {
+    $("#save1, #save2").on('click', function(e) {
+        e.preventDefault()
+        ajaxSaveNotes()
+    })
 
-if ($("#save2").length) {
-    setInterval(ajaxSaveNotes, 60000)
+    if ($("#save2").length) {
+        setInterval(ajaxSaveNotes, 60000)
+    }
+} else {
+    $("#save1, #save2").on('click', function(e) {
+        e.preventDefault()
+        showToastMsg("Can't save in search page")
+    })
 }
 
 function ajaxSaveNotes() {

@@ -314,3 +314,7 @@ textarea::-webkit-scrollbar-thumb
   position: relative;
   top: 1px;
 }
+
+.form-inline input, button {
+  height:35px;
+}
