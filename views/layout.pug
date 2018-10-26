@@ -6,6 +6,7 @@ html
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css', integrity='sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO', crossorigin='anonymous')
     link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css' integrity='sha256-JDBcnYeV19J14isGd3EtnsCQK05d8PczJ5+fvEvBJvI=' crossorigin='anonymous')
     link(href='https://fonts.googleapis.com/css?family=Amatic+SC|Comfortaa|Dancing+Script|Gamja+Flower|Indie+Flower|Mukta|Rajdhani|Roboto|Shadows+Into+Light|Source+Serif+Pro' rel='stylesheet')
+    link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous")
     link(rel='stylesheet', href='/stylesheets/style.css')
     title Weekly Work Note
   body
@@ -27,7 +28,13 @@ html
           - else
             ul.navbar-nav.mr-auto
               li.nav-item.active
+                a.nav-link(href='#')#prev-history
+                 i.fas.fa-caret-left
+              li.nav-item.active
                 a.nav-link(href='#')#history HISTORY
+              li.nav-item.active
+                a.nav-link(href='#')#next-history
+                 i.fas.fa-caret-right
               li.nav-item.active
                 a.nav-link#nav-wall(href='#' data-toggle="modal" data-target="#wall") WALL
               li.nav-item.active

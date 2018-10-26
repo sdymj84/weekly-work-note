@@ -13,6 +13,7 @@ block content
           - else
             .date #{eachNote.date}
           textarea(id=`note-${day}` name=`${day}`)= eachNote.note
+          input(id=`note-date-${day}` type='hidden' value=`${eachNote.date}`)
           
     - else
       - console.log("no notes")
