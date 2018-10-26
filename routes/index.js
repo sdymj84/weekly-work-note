@@ -3,16 +3,19 @@ var router = express.Router();
 var User = require('../models/users')
 var Note = require('../models/notes')
 var mongoose = require('mongoose')
+mongoose.Promise = require('bluebird');
 
 router.get('/', function (req, res, next) {
     var week = getWeek(Date.now())
     var newWeek = [];
 
+    // convert date array to string array > save to newWeek
     for (day of week) {
         day = day.toString().split(" ")
         day = day.slice(0, 4)
         newWeek.push(day.toString().replace(/,/g, " "))
     }
+    
     if (req.user) {
         var id = mongoose.Types.ObjectId(req.user.id)
         User.findOne({_id:id}, (err,user)=>{
@@ -21,69 +24,141 @@ router.get('/', function (req, res, next) {
                 var wallNum = user.settings.background || 1
                 var font = user.settings.font || 'Roboto'
                 var wall = `wall-image${wallNum}`
-                var date = user.currentDate
+                var currentWeekMon = user.currentWeekMon
 
-                week = getWeek(date)
+                week = getWeek(currentWeekMon)
                 newWeek = [];
 
+                // convert date to string > push to newWeek array
+                // (week[]:array of week in date type)
+                // (newWeek[]: array of week in string type)
                 for (day of week) {
                     day = day.toString().split(" ")
                     day = day.slice(0, 4)
                     newWeek.push(day.toString().replace(/,/g, " "))
                 }
 
-                Note.findOne({user:id, date:date}, (err,notes)=>{
-                    if (err) console.log(err)
-                    else {
-                        notes = notes || {}
-                        res.render('index', { 
-                            user: req.user,
-                            week: newWeek,
-                            notes, wall, font
-                        });      
+                Note.find({user:id}, (err,myNotes)=>{
+                    let exist = false
+                    myNotes.some(eachNote=>{
+                        if (eachNote.date === newWeek[1]) {
+                            exist = true
+                            return true
+                        }
+                    })
+                    if (exist) {
+                        Note.find({user:id}).then(myNotes=>{
+                            return Promise.all(getArrayNotes(myNotes, newWeek))
+                        }).then(arrayNotes=>{
+                            res.render('index', {
+                                user: req.user,
+                                week: newWeek,
+                                notes: arrayNotes, 
+                                wall, font
+                            })
+                        })
+                    } else {
+                        saveNotes(user, id, [])
+                        Note.find({user:id}).then(myNotes=>{
+                            return Promise.all(getArrayNotes(myNotes, newWeek))
+                        }).then(arrayNotes=>{
+                            res.render('index', {
+                                user: req.user,
+                                notes: arrayNotes, 
+                                wall, font
+                            })
+                        })
                     }
                 })
             }
         })
     } else {
-        res.render('index', { 
-            week: newWeek,
-            notes: {}
-        });      
+        res.redirect('/users/login')
     }
 });
 
+
 router.post('/save', (req, res) => {
     var id = mongoose.Types.ObjectId(req.user.id)
-    var d = new Date(Date.now())
+    var weekNotes = []
+    weekNotes.push(req.body.mon)
+    weekNotes.push(req.body.tue)
+    weekNotes.push(req.body.wed)
+    weekNotes.push(req.body.thu)
+    weekNotes.push(req.body.fri)
+    weekNotes.push(req.body.etc)
+    
     User.findOne({_id:id}, (err,user)=>{
         if (err) console.log(err)
         else {
-            d = new Date(user.currentDate)
-            var date = getMonday(d).toString().substring(0,15)
-            Note.updateOne({
-                user: id,
-                date: date
-            }, 
-            {
-                $set: {
-                    mon: req.body.mon,
-                    tue: req.body.tue,
-                    wed: req.body.wed,
-                    thu: req.body.thu,
-                    fri: req.body.fri,
-                    etc: req.body.etc
-                }
-            },
-            { upsert: true }, (err, dbRes) => {
+            saveNotes(user, id, weekNotes)
+            res.redirect('/')
+        }
+    })
+})
+
+
+router.get('/search', (req,res)=>{
+    const searchTerm = req.query.searchTerm
+    const id = mongoose.Types.ObjectId(req.user.id)
+    // search the term from database
+    User.findOne({_id:id}, (err,user)=>{
+        if (err) console.log(err)
+        else {
+            var wallNum = user.settings.background || 1
+            var font = user.settings.font || 'Roboto'
+            var wall = `wall-image${wallNum}`
+            Note.find({user:id, $text:{$search:searchTerm}}, null, {sort: {_id: -1}}, (err,notes)=>{
                 if (err) console.log(err)
                 else {
-                    res.redirect('/')
-                } 
+                    res.render('search', {
+                        user: req.user,
+                        notes, wall, font, searchTerm
+                    })
+                }
             })
         }
     })
 })
+
+
+function getArrayNotes(myNotes, newWeek) {
+    var arrayNotes = []
+    for (eachDate of newWeek) {
+        myNotes.some(eachNote=>{
+            if (eachNote.date === eachDate) {
+                arrayNotes.push(eachNote || {})
+                return true
+            }
+        })
+    }
+    return arrayNotes
+}
+
+// Receive user db result and weekNotes array
+function saveNotes(user, id, weekNotes) {
+    var week = []
+    // set date of each date for this week
+    d = new Date(user.currentWeekMon)
+            
+    for (let i=0 ; i<6 ; i++) {
+        week[i] = d.toString().substring(0,15)
+        d.setDate(d.getDate() + 1)
+        
+        Note.updateOne({
+            user: id,
+            date: week[i]
+        }, 
+        {
+            $set: {
+                note: weekNotes[i] || "",
+            }
+        },
+        { upsert: true }, (err, dbRes) => {
+            if (err) console.log(err)
+        })
+    }
+}
 
 function getWeek(d) {
     // show the week. if Sunday, show previous week
@@ -102,38 +177,6 @@ function getMonday(d) {
     var day = d.getDay()
     var mon = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is d
     return new Date(d.setDate(mon));
-}
-
-function saveNotes() {
-    var id = mongoose.Types.ObjectId(req.user.id)
-    var d = new Date(Date.now())
-    User.findOne({_id:id}, (err,user)=>{
-        if (err) console.log(err)
-        else {
-            d = new Date(user.currentDate)
-            var date = getMonday(d).toString().substring(0,15)
-            Note.updateOne({
-                user: id,
-                date: date
-            }, 
-            {
-                $set: {
-                    mon: req.body.mon,
-                    tue: req.body.tue,
-                    wed: req.body.wed,
-                    thu: req.body.thu,
-                    fri: req.body.fri,
-                    wkn: req.body.wkn
-                }
-            },
-            { upsert: true }, (err, dbRes) => {
-                if (err) console.log(err)
-                else {
-                    res.redirect('/')
-                } 
-            })
-        }
-    })
 }
 
 module.exports = router;

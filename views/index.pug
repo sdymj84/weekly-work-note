@@ -2,24 +2,22 @@ extends layout
 
 block content
   form(action="/save", method="post")
-    .note
-      .date #{week[1]}
-      textarea#note-mon(name="mon")= notes.mon
-    .note
-      .date #{week[2]}
-      textarea#note-tue(name="tue")= notes.tue
-    .note
-      .date #{week[3]}
-      textarea#note-wed(name="wed")= notes.wed
-    .note
-      .date #{week[4]}
-      textarea#note-thu(name="thu")= notes.thu
-    .note
-      .date #{week[5]}
-      textarea#note-fri(name="fri")= notes.fri
-    .note
-      .date Other Memo
-      textarea#note-etc(name="etc")= notes.etc
+    - if (notes.length)
+      - for (eachNote of notes)
+        - var day = eachNote.date.slice(0,3).toLowerCase()
+        - if (day === "sat")
+          - day = "etc"
+        .note
+          - if (day === "etc")
+            .date Other Notes
+          - else
+            .date #{eachNote.date}
+          textarea(id=`note-${day}` name=`${day}`)= eachNote.note
+          input(id=`note-date-${day}` type='hidden' value=`${eachNote.date}`)
+          
+    - else
+      - console.log("no notes")
+    
     - if (user)
       input(type="submit" class=`${wall}` value="")#save1
     - else

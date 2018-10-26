@@ -3,17 +3,19 @@
 ===================================================================*/
 function saveEffect() {
     $(".navbar").addClass("shadow-black")
-    $("#save2").addClass("bcolor-ani")
-    setTimeout(function() {
+    $("#save2").addClass("shake")
+    setTimeout(function () {
         $(".navbar").removeClass("shadow-black")
-        $("#save2").removeClass("bcolor-ani")
+        $("#save2").removeClass("shake")
     }, 1000)
 }
+
+
 
 /*===================================================================
     Wall Changes    
 ===================================================================*/
-$("#wall-images-p").on("click", "img", function() {
+$("#wall-images-p").on("click", "img", function () {
     $("#save1").removeClass().addClass(this.id)
 })
 
@@ -28,20 +30,22 @@ setFontInAll()
 if ($("#load-font").length) {
     const font = $("#load-font").text()
     $("*").css('font-family', font)
+    $("i").css('font-family', "")
     setFontInModal()
 }
 
 function setFontInModal() {
-    $(".font-list").each(function(i, element) {
+    $(".font-list").each(function (i, element) {
         const font = $(element).text().split(":")[0]
-        $(`#font${i+1}`).css('font-family', font)
+        $(`#font${i + 1}`).css('font-family', font)
     })
 }
 
 function setFontInAll() {
-    $(".font-list").on("click", function() {
+    $(".font-list").on("click", function () {
         const font = $(this).text().split(":")[0]
         $("*").css('font-family', font)
+        $("i").css('font-family', "")
         setFontInModal()
     })
 }
@@ -61,21 +65,21 @@ if ($("#show-err-msg").length) {
 
 function loginErrMsg() {
     $("#login-err-msg").addClass("show")
-    setTimeout(function() {
+    setTimeout(function () {
         $("#login-err-msg").removeClass("show")
     }, 3000)
 }
 
 function loginRecMsg() {
     $("#login-rec-msg").addClass("show")
-    setTimeout(function() {
+    setTimeout(function () {
         $("#login-rec-msg").removeClass("show")
     }, 3000)
 }
 
 function showToastMsg(message) {
     $("#toast-msg").text(message).addClass("show")
-    setTimeout(function() {
+    setTimeout(function () {
         $("#toast-msg").removeClass("show")
     }, 3000)
 }
@@ -90,23 +94,47 @@ $("#history").datepicker({
     todayHighlight: true,
     maxViewMode: 2,
     container: ".datepicker-container",
-}).on('changeDate', function(e) {
+}).on('changeDate', function (e) {
     $("#set-date").val(e.date)
     $("#set-date-form").submit()
 })
+
+$("#prev-history").on("click", function () {
+    let d = $("#note-date-mon").val()
+    d = new Date(d)
+    d = new Date(d.setDate(d.getDate() - 7))
+    $("#set-date").val(d)
+    $("#set-date-form").submit()
+})
+
+$("#next-history").on("click", function () {
+    let d = $("#note-date-mon").val()
+    d = new Date(d)
+    d = new Date(d.setDate(d.getDate() + 7))
+    $("#set-date").val(d)
+    $("#set-date-form").submit()
+})
+
 
 
 
 /*===================================================================
     Save Notes with Ajax
 ===================================================================*/
-$("#save1, #save2").on('click', function(e) {
-    e.preventDefault()
-    ajaxSaveNotes()
-})
+if (!$("#search-page").length) {
+    $("#save1, #save2").on('click', function (e) {
+        e.preventDefault()
+        ajaxSaveNotes()
+    })
 
-if ($("#save2").length) {
-    setInterval(ajaxSaveNotes, 60000)
+    if ($("#save2").length) {
+        setInterval(ajaxSaveNotes, 60000)
+    }
+} else {
+    $("#save1, #save2").on('click', function (e) {
+        e.preventDefault()
+        showToastMsg("Can't save in search page")
+    })
 }
 
 function ajaxSaveNotes() {
@@ -118,23 +146,21 @@ function ajaxSaveNotes() {
         fri: $("#note-fri").val(),
         etc: $("#note-etc").val(),
     }
-    
+
     $.ajax({
         type: "POST",
         url: "save",
         contentType: "application/json",
         data: JSON.stringify(formData),
-        success: function() {
+        success: function () {
             saveEffect()
             console.log("Notes are saved successfully")
         },
-        error: function(e) {
+        error: function (e) {
             showToastMsg("Auto save issue occurred, please save manually")
             console.log(e)
         }
     })
 }
-
-
 
 

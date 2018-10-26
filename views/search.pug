@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  input(type="hidden", id="search-page")
+  form(action="/save", method="post")
+    - if (notes.length)
+      - for (eachNote of notes)
+        - var day = eachNote.date.slice(0,3).toLowerCase()
+        - if (day === "sat")
+          - day = "etc"
+        .note
+          - if (day === "etc")
+            .date Other Notes
+          - else
+            .date #{eachNote.date}
+          textarea(class="note-highlight")= eachNote.note
+          
+    - else
+      - console.log("no notes")
+    
+    - if (user)
+      input(type="submit" class=`${wall}` value="")#save1
+    - else
+      #show-login-rec-msg
+      
+  
