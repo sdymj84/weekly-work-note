@@ -164,3 +164,34 @@ function ajaxSaveNotes() {
 }
 
 
+/*===================================================================
+    Textarea key binding
+===================================================================*/
+
+$("body").on('keydown', 'textarea', function (e) {
+    var keyCode = e.keyCode || e.which;
+
+    // Tab
+    if (keyCode == 9) {
+        e.preventDefault();
+        var start = this.selectionStart;
+        var end = this.selectionEnd;
+
+        // set textarea value to: text before caret + tab + text after caret
+        $(this).val($(this).val().substring(0, start)
+            + "\t"
+            + $(this).val().substring(end));
+
+        // put caret at right position again
+        this.selectionStart =
+            this.selectionEnd = start + 1;
+    }
+
+    // Ctrl + S (save)
+    if (e.ctrlKey || e.metaKey) {
+        if (String.fromCharCode(keyCode).toLowerCase() === 's') {
+            e.preventDefault();
+            ajaxSaveNotes()
+        }
+    }
+});
