@@ -1,6 +1,6 @@
 # weekly-work-note
 Note your work schedule and TODOs daily with this simple intuitive note
-- Try on [Weekly Work Note](http://ec2-18-216-145-9.us-east-2.compute.amazonaws.com/ "Weekly Work Note")
+- Try on [Weekly Work Note](https://worknote.herokuapp.com/ "Weekly Work Note")
 
 ## Skills
 - NodeJS - Express with Pug
