@@ -191,7 +191,11 @@ $("body").on('keydown', 'textarea', function (e) {
     if (e.ctrlKey || e.metaKey) {
         if (String.fromCharCode(keyCode).toLowerCase() === 's') {
             e.preventDefault();
-            ajaxSaveNotes()
+            if (!$("#search-page").length) {
+                ajaxSaveNotes()
+            } else {
+                showToastMsg("Can't save in search page")
+            }
         }
     }
 });

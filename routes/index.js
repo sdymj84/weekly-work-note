@@ -15,10 +15,10 @@ router.get('/', function (req, res, next) {
         day = day.slice(0, 4)
         newWeek.push(day.toString().replace(/,/g, " "))
     }
-    
+
     if (req.user) {
         var id = mongoose.Types.ObjectId(req.user.id)
-        User.findOne({_id:id}, (err,user)=>{
+        User.findOne({ _id: id }, (err, user) => {
             if (err) console.log(err)
             else {
                 var wallNum = user.settings.background || 1
@@ -38,33 +38,33 @@ router.get('/', function (req, res, next) {
                     newWeek.push(day.toString().replace(/,/g, " "))
                 }
 
-                Note.find({user:id}, (err,myNotes)=>{
+                Note.find({ user: id }, (err, myNotes) => {
                     let exist = false
-                    myNotes.some(eachNote=>{
+                    myNotes.some(eachNote => {
                         if (eachNote.date === newWeek[1]) {
                             exist = true
                             return true
                         }
                     })
                     if (exist) {
-                        Note.find({user:id}).then(myNotes=>{
+                        Note.find({ user: id }).then(myNotes => {
                             return Promise.all(getArrayNotes(myNotes, newWeek))
-                        }).then(arrayNotes=>{
+                        }).then(arrayNotes => {
                             res.render('index', {
                                 user: req.user,
                                 week: newWeek,
-                                notes: arrayNotes, 
+                                notes: arrayNotes,
                                 wall, font
                             })
                         })
                     } else {
                         saveNotes(user, id, [])
-                        Note.find({user:id}).then(myNotes=>{
+                        Note.find({ user: id }).then(myNotes => {
                             return Promise.all(getArrayNotes(myNotes, newWeek))
-                        }).then(arrayNotes=>{
+                        }).then(arrayNotes => {
                             res.render('index', {
                                 user: req.user,
-                                notes: arrayNotes, 
+                                notes: arrayNotes,
                                 wall, font
                             })
                         })
@@ -87,8 +87,8 @@ router.post('/save', (req, res) => {
     weekNotes.push(req.body.thu)
     weekNotes.push(req.body.fri)
     weekNotes.push(req.body.etc)
-    
-    User.findOne({_id:id}, (err,user)=>{
+
+    User.findOne({ _id: id }, (err, user) => {
         if (err) console.log(err)
         else {
             saveNotes(user, id, weekNotes)
@@ -98,25 +98,27 @@ router.post('/save', (req, res) => {
 })
 
 
-router.get('/search', (req,res)=>{
+router.get('/search', (req, res) => {
     const searchTerm = req.query.searchTerm
     const id = mongoose.Types.ObjectId(req.user.id)
     // search the term from database
-    User.findOne({_id:id}, (err,user)=>{
+    User.findOne({ _id: id }, (err, user) => {
         if (err) console.log(err)
         else {
             var wallNum = user.settings.background || 1
             var font = user.settings.font || 'Roboto'
             var wall = `wall-image${wallNum}`
-            Note.find({user:id, $text:{$search:searchTerm}}, null, {sort: {_id: -1}}, (err,notes)=>{
-                if (err) console.log(err)
-                else {
-                    res.render('search', {
-                        user: req.user,
-                        notes, wall, font, searchTerm
-                    })
-                }
-            })
+            Note.find({ user: id, $text: { $search: searchTerm } })
+                .sort({ _id: -1 })
+                .exec((err, notes) => {
+                    if (err) console.log(err)
+                    else {
+                        res.render('search', {
+                            user: req.user,
+                            notes, wall, font, searchTerm
+                        })
+                    }
+                })
         }
     })
 })
@@ -125,7 +127,7 @@ router.get('/search', (req,res)=>{
 function getArrayNotes(myNotes, newWeek) {
     var arrayNotes = []
     for (eachDate of newWeek) {
-        myNotes.some(eachNote=>{
+        myNotes.some(eachNote => {
             if (eachNote.date === eachDate) {
                 arrayNotes.push(eachNote || {})
                 return true
@@ -140,23 +142,23 @@ function saveNotes(user, id, weekNotes) {
     var week = []
     // set date of each date for this week
     d = new Date(user.currentWeekMon)
-            
-    for (let i=0 ; i<6 ; i++) {
-        week[i] = d.toString().substring(0,15)
+
+    for (let i = 0; i < 6; i++) {
+        week[i] = d.toString().substring(0, 15)
         d.setDate(d.getDate() + 1)
-        
+
         Note.updateOne({
             user: id,
             date: week[i]
-        }, 
-        {
-            $set: {
-                note: weekNotes[i] || "",
-            }
         },
-        { upsert: true }, (err, dbRes) => {
-            if (err) console.log(err)
-        })
+            {
+                $set: {
+                    note: weekNotes[i] || "",
+                }
+            },
+            { upsert: true }, (err, dbRes) => {
+                if (err) console.log(err)
+            })
     }
 }
 
